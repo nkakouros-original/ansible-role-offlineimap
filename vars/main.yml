@@ -1,0 +1,123 @@
+---
+
+offlineimap_config_template: offlineimaprc.j2
+# Set this variable to a custom template if for whatever reason you want to
+# override the one that comes with this role.
+
+offlineimap_config_path: ~/.config/offlineimap/config
+# The path where the offlineimaprc file will lie.
+
+offflineimap_config_mode: 0644
+# The permissions that will be applied to the config file for offlineimap.
+
+offlineimap_config_vars_general:
+  - metadata
+  - accounts
+  - maxsyncaccounts
+  - ui
+  - ignore-readonly
+  - pythonfile
+  - socktimeout
+  - fsync
+
+offlineimap_config_vars_mbnames:
+  - enabled
+  - filename
+  - header
+  - peritem
+  - sep
+  - footer
+  - incremental
+  - folderfilter
+  - sort_keyfunc
+
+offlineimap_config_vars_account:
+  - localrepository
+  - remoterepository
+  - autorefresh
+  - quick
+  - presync
+  - postsynchook
+  - maxsize
+  - maxage
+  - maildir-windows-compatible
+  - synclabels
+  - labelsheader
+  - ignorelabels
+  - filterheades
+  - proxy
+  - utf8foldernames
+  - authproxy
+
+offlineimap_config_vars_repository_local:
+  - type
+  - localfolders
+  - sep
+  - startdate
+  - sync_deletes
+  - restoreatime
+  - utime_from_header
+  - filename_use_mail_timestamp
+  - custom_flag_[a-z]
+
+offlineimap_config_vars_repository_remote:
+  - type
+  - ipv6
+  - remotehosteval
+  - remoteporteval
+  - remoteusereval
+  - remotepasseval
+  - remotehost
+  - starttls
+  - ssl
+  - sslclientcert
+  - sslclientkey
+  - sslcacertfile
+  - cert_fingerprint
+  - ssl_versions
+  - tls_level
+  - remoteport
+  - remoteuser
+  - remote_identity
+  - auth_mechanisms
+  - oauth2_client_id
+  - oauth2_client_secret
+  - oauth2_refresh_token
+  - oauth2_access_token
+  - oauth2_access_token_eval
+  - oauth2_refreash_token_eval
+  - oauth2_client_id_eval
+  - oauth2_client_secret_eval
+  - oauth2_request_url
+  - remotepass
+  - remoatepassfile
+  - preauthtunnel
+  - remotepasseval
+  - preauthtunnel
+  - transporttunnel
+  - reference
+  - maxconnections
+  - holdconnectionopen
+  - keepalive
+  - singlethreadperfolder
+  - idlefolders
+  - usecompression
+  - maxconnections
+  - holdconnectionopen
+  - keepalive
+  - expunge
+  - subscribedonly
+  - nametrans
+  - dynamic_folderfilter
+  - folderfilter
+  - folderincludes
+  - createfolders
+  - sync_deletes
+  - foldersort
+  - readonly
+  - newmail_hook
+  - retrycount
+  - copy_ignore_eval
+
+offlineimap_config_vars_repository_remote_gmail:
+  - trashfolder

@@ -1,0 +1,11 @@
+---
+
+- assert:
+    that:
+      - "offlineimap_config_owner != ''"
+    msg: "'offlineimap_config_owner' cannot be empty"
+
+- assert:
+    that:
+      - "item is in (offlineimap_config_vars_account + 'name')"
+    loop: "{{ q() }}"

@@ -1,0 +1,4 @@
+---
+
+- include_tasks: offlineimap.yml
+  when: offlineimap_enabled

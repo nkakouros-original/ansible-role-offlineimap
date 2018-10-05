@@ -1,0 +1,26 @@
+---
+
+- name: Upload config file
+  template:
+    src: "{{ offlineimap_config_template }}"
+    dest: "{{ offlineimap_config_path }}"
+    owner: "{{ offlineimap_config_owner }}"
+    group: "{{ offlineimap_config_group }}"
+    mode: "{{ offlineimap_config_mode }}"
+    validate: offlineimap --dry-run
+  notify: reload offlineimap service
+  when: not offlineimap_config_append_only
+
+
+- name: Append configuration
+  blockinfile:
+    path: "{{ offlineimap_config_path }}"
+    insertafter: EOF
+    block: "{{ offlineimap_config_block }}"
+    owner: "{{ offlineimap_config_owner }}"
+    group: "{{ offlineimap_config_group }}"
+    mode: "{{ offlineimap_config_mode }}"
+    validate: offlineimap --dry-run
+    create: yes
+  notify: reload offlineimap service
+  when: offlineimap_config_block != ''

@@ -1,0 +1,45 @@
+---
+
+offlineimap_enabled: yes
+# Set to no to completely disable this role.
+
+
+offlineimap_config_owner: ''
+# The user that will own the configuration file for offlineimap.
+
+
+offlineimap_config_group: "{{ offlineimap_config_owner }}"
+# The group that will be applied to the configuration file for offlineimap.
+
+
+offlineimap_config_block: ''
+# A custom snippet of text that you might want to append to the config file.
+# If the file does not exit (eg because you have set
+# `offlineimap_config_append_only: yes`), it will be created.
+# This is useful in cases when for whatever reason the config file for
+# offlineimap is also edited by another ansible role/task and you want avoid
+# race conditions or support idempotency for your playbook.
+
+
+offlineimap_config_append_only: no
+# Set to yes to skip using a template for offlineimap's config file. In this
+# case, the `offlineimap_config_block` will only be inserted into the config
+# file.
+
+# offlineimap_<offlineimage_config_option>
+# Specify any of the [offlineimap config options](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf)
+# prefixed by `offlineimap_`. These will be read and parsed into a configuration file
+# according to the template specified in `offlineimage_config_template`.
+
+offlineimap_accounts: []
+# A list of account names to configure. Each list item is a hash containing the
+# config options supported under [Account <account>] section. The extra key
+# `name` specifies the account name. Example:
+#
+# ```yaml
+# offlineimap_accounts:
+#   - name: account1
+#     localrepository: account1_local_repo
+#     remoterepository: account1_remote_repo
+#   - name: account2
+#     ...
