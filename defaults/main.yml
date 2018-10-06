@@ -43,3 +43,10 @@ offlineimap_accounts: []
 #     remoterepository: account1_remote_repo
 #   - name: account2
 #     ...
+
+# offlineimap_config_*
+
+offlineimap_mbnames: {}
+
+offlineimap_manage_service: yes
+offlineimap_install_service: yes

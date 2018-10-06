@@ -1,0 +1,44 @@
+[general]
+accounts = {{ offlineimap_accounts | map(attribute='name') | list | join(',') }}
+{% for option in offlineimap_config_vars_general | map(attribute='option') | list -%}
+  {%- set prefixed_option=lookup('vars', 'offlineimap_config_' + option, default='') -%}
+  {%- if prefixed_option != '' -%}
+    {{ option }} = {{ prefixed_option }}
+  {% endif %}
+{% endfor %}
+
+{% for account in offlineimap_accounts -%}
+  [account {{ account.name }}]
+{% for option in account if option != 'local_repo' and option != 'remote_repo' -%}
+  {{ option }} = {{ account[option] }}
+{% endfor %}
+
+{% endfor %}
+
+{% if offlineimap_mbnames is defined -%}
+[mbnames]
+enabled = yes
+{% for option in offlineimap_config_vars_mbnames | map(attribute='option') | list -%}
+  {% if option in offlineimap_mbnames.keys() -%}
+    {{ option }} = {{ offlineimap_mbnames[option] }}
+  {% else -%}
+    {{ option }} = ''
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% for local_repo in offlineimap_accounts | map(attribute='local_repo') | list -%}
+  [Repository {{ local_repo.name }}]
+{% for option in local_repo if option != 'name' -%}
+  {{ option }} = {{ local_repo[option] }}
+{% endfor %}
+
+{% endfor %}
+
+{%- for remote_repo in offlineimap_accounts | map(attribute='remote_repo') | list -%}
+  [Repository {{ remote_repo.name }}]
+{% for option in remote_repo if option != 'name' -%}
+  {{ option }} = {{ remote_repo[option] }}
+{% endfor %}
+
+{% endfor %}

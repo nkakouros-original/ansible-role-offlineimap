@@ -1,0 +1,13 @@
+---
+
+# - name: Install systemd service
+#   when: offlineimap_install_service
+
+- name: Start offlineimap service
+  systemd:
+    name: "offlineimap@{{ item }}"
+    scope: user
+    enabled: yes
+    state: started
+  when: offlineimap_manage_service
+  loop: "{{ offlineimap_accounts | map(attribute='name') | list }}"

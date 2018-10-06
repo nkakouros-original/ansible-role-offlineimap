@@ -7,7 +7,7 @@
     owner: "{{ offlineimap_config_owner }}"
     group: "{{ offlineimap_config_group }}"
     mode: "{{ offlineimap_config_mode }}"
-    validate: offlineimap --dry-run
+    validate: "offlineimap --dry-run -c %s"
   notify: reload offlineimap service
   when: not offlineimap_config_append_only
 

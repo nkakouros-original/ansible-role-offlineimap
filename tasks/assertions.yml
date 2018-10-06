@@ -1,11 +1,216 @@
 ---
 
+- include_vars:
+    file: options_spec.yml
+
 - assert:
     that:
       - "offlineimap_config_owner != ''"
     msg: "'offlineimap_config_owner' cannot be empty"
 
+
 - assert:
     that:
-      - "item is in (offlineimap_config_vars_account + 'name')"
-    loop: "{{ q() }}"
+      - 'offlineimap_config_accounts is not defined'
+    msg: "'offlineimap_config_accounts' config option is auto created by the role, remove it"
+
+
+- name: Check account config for invalid keys
+  assert:
+    that:
+      - >-
+        item is in
+          (
+            (
+              offlineimap_config_vars_account
+              | map(attribute='option')
+              | list
+            )
+            + ['name', 'local_repo', 'remote_repo']
+          )
+    msg: "'offlineimap_accounts' contains invalid key '{{ item }}'"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map('dict2items')
+      | list
+      | flatten
+      | map(attribute='key')
+      | list
+    }}
+
+- name: Check required keys exist in account config
+  assert:
+    that:
+      - >-
+        required_options
+        | difference(item)
+        | length == 0
+    msg: "'offlineimap_accounts' account '{{ offlineimap_accounts[index].name }}' does not contain the following required keys: {{ required_options | difference(item) }}"
+  loop: "{{ offlineimap_accounts }}"
+  loop_control:
+    index_var: index
+  vars:
+    required_options: >-
+      {{
+        (
+          (
+            offlineimap_config_vars_account
+            | selectattr('required')
+            | map(attribute='option')
+            | list
+          )
+          + ['name', 'local_repo', 'remote_repo']
+        )
+      }}
+
+
+- name: Check mbnames config for invalid keys
+  assert:
+    that:
+      - >-
+        item is in
+          (
+            offlineimap_config_vars_mbnames
+            | map(attribute='option')
+            | list
+          )
+    msg: "'offlineimap_accounts' contains invalid key '{{ item }}'"
+  when: offlineimap_enabled is defined
+  loop: "{{ offlineimap_mbnames.keys() | list }}"
+
+- name: Check local repos config for invalid keys
+  assert:
+    that:
+      - >-
+        item is in
+          (
+            (
+              offlineimap_config_vars_repository_local
+              | map(attribute='option')
+              | list
+            )
+            + ['name']
+          )
+    msg: "'local_repo' contains an invalid key: {{ item }}"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map(attribute='local_repo')
+      | map('dict2items')
+      | flatten
+      | map(attribute='key')
+      | list
+    }}
+
+- name: Check required keys exist in local repos config
+  assert:
+    that:
+      - >-
+        required_options
+        | difference(item)
+        | length == 0
+    msg: "local repository in account '{{ offlineimap_accounts[index].name }}' does not contain the following required keys: {{ required_options | difference(item) }}"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map(attribute='local_repo')
+      | list
+    }}
+  loop_control:
+    index_var: index
+  vars:
+    required_options: >-
+      {{
+        (
+          offlineimap_config_vars_repository_local
+          | selectattr('required')
+          | map(attribute='option')
+          | list
+        )
+        + ['name']
+      }}
+
+- name: Check remote repos config for invalid keys
+  assert:
+    that:
+      - >-
+        item is in
+          (
+            (
+              offlineimap_config_vars_repository_remote
+              | map(attribute='option')
+              | list
+            )
+            +
+            (
+              offlineimap_config_vars_repository_remote_gmail
+              | map(attribute='option')
+              | list
+            )
+            + ['name']
+          )
+    msg: "'remote_repo' contains an invalid key: {{ item }}"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map(attribute='remote_repo')
+      | map('dict2items')
+      | flatten
+      | map(attribute='key')
+      | list
+    }}
+
+- name: Check required keys exist in remote repos config
+  assert:
+    that:
+      - >-
+        required_options
+        | difference(item)
+        | length == 0
+    msg: "remote repository in account '{{ offlineimap_accounts[index].name }}' does not contain the following required keys: {{ required_options | difference(item) }}"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map(attribute='remote_repo')
+      | list
+    }}
+  loop_control:
+    index_var: index
+  vars:
+    required_options: >-
+      {{
+        (
+          offlineimap_config_vars_repository_remote
+          | selectattr('required')
+          | map(attribute='option')
+          | list
+        )
+        + ['name']
+      }}
+
+
+- name: Check remote repos config for GMail specific options
+  assert:
+    that:
+      - "item not in gmail_options"
+    msg: "option '{{ item }}' is valid only for remote repositories of type 'GMailMailDir'"
+  loop: >-
+    {{
+      offlineimap_accounts
+      | map(attribute='remote_repo')
+      | selectattr('type', 'equalto', 'IMAP')
+      | map('dict2items')
+      | flatten
+      | map(attribute='key')
+      | list
+      }}
+  vars:
+    gmail_options: >-
+      {{
+        (
+          offlineimap_config_vars_repository_remote_gmail
+          | map(attribute='option')
+          | list
+        )
+      }}

@@ -1,0 +1,304 @@
+---
+
+offlineimap_config_vars_general:
+  - option: metadata
+    type: string
+    required: false
+  - option: maxsyncaccounts
+    type: string
+    required: false
+  - option: ui
+    type: string
+    required: false
+  - option: ignore-readonly
+    type: string
+    required: false
+  - option: pythonfile
+    type: string
+    required: false
+  - option: socktimeout
+    type: string
+    required: false
+  - option: fsync
+    type: string
+    required: false
+
+offlineimap_config_vars_mbnames:
+  - option: enabled
+    type: string
+    required: false
+  - option: filename
+    type: string
+    required: false
+  - option: header
+    type: string
+    required: false
+  - option: peritem
+    type: string
+    required: false
+  - option: sep
+    type: string
+    required: false
+  - option: footer
+    type: string
+    required: false
+  - option: incremental
+    type: string
+    required: false
+  - option: folderfilter
+    type: string
+    required: false
+  - option: sort_keyfunc
+    type: string
+    required: false
+
+offlineimap_config_vars_account:
+  - option: autorefresh
+    type: string
+    required: false
+  - option: quick
+    type: string
+    required: false
+  - option: presync
+    type: string
+    required: false
+  - option: postsynchook
+    type: string
+    required: false
+  - option: maxsize
+    type: string
+    required: false
+  - option: maxage
+    type: string
+    required: false
+  - option: maildir-windows-compatible
+    type: string
+    required: false
+  - option: synclabels
+    type: string
+    required: false
+  - option: labelsheader
+    type: string
+    required: false
+  - option: ignorelabels
+    type: string
+    required: false
+  - option: filterheades
+    type: string
+    required: false
+  - option: proxy
+    type: string
+    required: false
+  - option: utf8foldernames
+    type: string
+    required: false
+  - option: authproxy
+    type: string
+    required: false
+
+offlineimap_config_vars_repository_local:
+  - option: type
+    type: string
+    required: false
+  - option: localfolders
+    type: string
+    required: false
+  - option: sep
+    type: string
+    required: false
+  - option: startdate
+    type: string
+    required: false
+  - option: sync_deletes
+    type: string
+    required: false
+  - option: restoreatime
+    type: string
+    required: false
+  - option: utime_from_header
+    type: string
+    required: false
+  - option: filename_use_mail_timestamp
+    type: string
+    required: false
+  - option: custom_flag_[a-z]
+    type: string
+    required: false
+
+offlineimap_config_vars_repository_remote:
+  - option: type
+    type: string
+    required: false
+  - option: ipv6
+    type: string
+    required: false
+  - option: remotehosteval
+    type: string
+    required: false
+  - option: remoteporteval
+    type: string
+    required: false
+  - option: remoteusereval
+    type: string
+    required: false
+  - option: remotepasseval
+    type: string
+    required: false
+  - option: remotehost
+    type: string
+    required: false
+  - option: starttls
+    type: string
+    required: false
+  - option: ssl
+    type: string
+    required: false
+  - option: sslclientcert
+    type: string
+    required: false
+  - option: sslclientkey
+    type: string
+    required: false
+  - option: sslcacertfile
+    type: string
+    required: false
+  - option: cert_fingerprint
+    type: string
+    required: false
+  - option: ssl_versions
+    type: string
+    required: false
+  - option: tls_level
+    type: string
+    required: false
+  - option: remoteport
+    type: string
+    required: false
+  - option: remoteuser
+    type: string
+    required: false
+  - option: remote_identity
+    type: string
+    required: false
+  - option: auth_mechanisms
+    type: string
+    required: false
+  - option: oauth2_client_id
+    type: string
+    required: false
+  - option: oauth2_client_secret
+    type: string
+    required: false
+  - option: oauth2_refresh_token
+    type: string
+    required: false
+  - option: oauth2_access_token
+    type: string
+    required: false
+  - option: oauth2_access_token_eval
+    type: string
+    required: false
+  - option: oauth2_refreash_token_eval
+    type: string
+    required: false
+  - option: oauth2_client_id_eval
+    type: string
+    required: false
+  - option: oauth2_client_secret_eval
+    type: string
+    required: false
+  - option: oauth2_request_url
+    type: string
+    required: false
+  - option: remotepass
+    type: string
+    required: false
+  - option: remoatepassfile
+    type: string
+    required: false
+  - option: preauthtunnel
+    type: string
+    required: false
+  - option: remotepasseval
+    type: string
+    required: false
+  - option: preauthtunnel
+    type: string
+    required: false
+  - option: transporttunnel
+    type: string
+    required: false
+  - option: reference
+    type: string
+    required: false
+  - option: maxconnections
+    type: string
+    required: false
+  - option: holdconnectionopen
+    type: string
+    required: false
+  - option: keepalive
+    type: string
+    required: false
+  - option: singlethreadperfolder
+    type: string
+    required: false
+  - option: idlefolders
+    type: string
+    required: false
+  - option: usecompression
+    type: string
+    required: false
+  - option: maxconnections
+    type: string
+    required: false
+  - option: holdconnectionopen
+    type: string
+    required: false
+  - option: keepalive
+    type: string
+    required: false
+  - option: expunge
+    type: string
+    required: false
+  - option: subscribedonly
+    type: string
+    required: false
+  - option: nametrans
+    type: string
+    required: false
+  - option: dynamic_folderfilter
+    type: string
+    required: false
+  - option: folderfilter
+    type: string
+    required: false
+  - option: folderincludes
+    type: string
+    required: false
+  - option: createfolders
+    type: string
+    required: false
+  - option: sync_deletes
+    type: string
+    required: false
+  - option: foldersort
+    type: string
+    required: false
+  - option: readonly
+    type: string
+    required: false
+  - option: newmail_hook
+    type: string
+    required: false
+  - option: retrycount
+    type: string
+    required: false
+  - option: copy_ignore_eval
+    type: string
+    required: false
+
+offlineimap_config_vars_repository_remote_gmail:
+  - option: trashfolder
+    type: string
+    required: false
