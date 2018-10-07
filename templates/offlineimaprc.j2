@@ -48,3 +48,7 @@ enabled = yes
 {% endfor %}
 
 {% endfor %}
+
+{% if offlineimap_config_block != '' %}
+{{ offlineimap_config_block }}
+{% endif %}
