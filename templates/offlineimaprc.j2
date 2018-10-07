@@ -7,25 +7,31 @@ accounts = {{ offlineimap_accounts | map(attribute='name') | list | join(',') }}
   {% endif %}
 {% endfor %}
 
-{% for account in offlineimap_accounts -%}
-  [account {{ account.name }}]
-{% for option in account if option != 'local_repo' and option != 'remote_repo' -%}
-  {{ option }} = {{ account[option] }}
-{% endfor %}
-
-{% endfor %}
-
 {% if offlineimap_mbnames is defined -%}
 [mbnames]
 enabled = yes
-{% for option in offlineimap_config_vars_mbnames | map(attribute='option') | list -%}
-  {% if option in offlineimap_mbnames.keys() -%}
-    {{ option }} = {{ offlineimap_mbnames[option] }}
-  {% else -%}
-    {{ option }} = ''
-  {% endif %}
-{% endfor %}
+{% for option in offlineimap_config_vars_mbnames | map(attribute='option') | list if option not in ['enabled']-%}
+{% if option in offlineimap_mbnames.keys() -%}
+{{ option }} = {{ offlineimap_mbnames[option] }}
+{% elif option not in ['folderfilter', 'sort_keyfunc', 'incremental'] -%}
+{{ option }} = ''
+{% endif -%}
+{%- endfor -%}
 {% endif %}
+
+{% for account in offlineimap_accounts -%}
+  [Account {{ account.name }}]
+{% for option in account if option not in ['name'] -%}
+{% if option == 'local_repo' -%}
+  localrepository = {{ account['local_repo']['name'] }}
+{% elif option == 'remote_repo' -%}
+  remoterepository = {{ account['remote_repo']['name'] }}
+{% else -%}
+  {{ option }} = {{ account[option] }}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
 
 {% for local_repo in offlineimap_accounts | map(attribute='local_repo') | list -%}
   [Repository {{ local_repo.name }}]
